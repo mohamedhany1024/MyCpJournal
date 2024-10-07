@@ -62,5 +62,6 @@
 
 .titleOption:hover {
     box-shadow: 2px 2px 12px #aaaaaa;
+    cursor: pointer;
 }
 
