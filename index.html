@@ -15,6 +15,11 @@
         <p onclick="closeImg('22d1b')" class="close">Close</p>
         <img src="22d1b.png">
     </div>
+
+    <div class="overlay" id="2020A" style="overflow: auto;">
+        <p onclick="closeImg('2020A')" class="close">Close</p>
+        <img width="90%" src="2020A.png" alt="">
+    </div>
     <h1 class="center">My CP Journal</h1>
     <div class="bar">
         <img src="pfp.jpg" width="50" style="border-radius: 100px; float: left;">
@@ -280,7 +285,131 @@
                 As with C, there are other methods that can used to read/write with these objects. Go look them up in a reference manual if you need them. 
         </p>
     </div>
-    
+    <h3 class="titleOption" onclick="expandSection('s12')">Numerical Systems</h3>
+    <div class="section" id="s12">
+        <h4>How do bases work?</h4>
+        <p>no matter what base system you are using. you are always limited by the Available number of symbols in that base system</p>
+        <p>E.G base 10 you have 10 symbols to work with. So as you are counting and run out of symbols, you simply add a new 'slot' and start counting from scratch. The leftmost slot is the most significant and holds the most weight in our number.</p>
+        <p>A standardized way to represent a Number is to use the base raised to progressive powers and adding them together</p>
+        <p>Kind of like representing currency with different Banknotes values.</p>
+        <p>E.G: 17412 in base10 is represented as 10^4*1 + 10^3*7 + 10^2*4 + 10^1*1 + 10^0*2</p>
+        <p>As you can see we have progressive 'tiers' of numbers (units, tens, hundreds, thosands.etc..) repeated to various degrees</p>
+        <p>Notice that: the various 'degrees/repititions' that our 'tiers' are repeated with are limited to our symbols</p>
+        <p>To represent 21 in base2 we can apply a similar Principle</p>
+        <p>our base is 2 so our 'tiers' will be powers of 2, we only have two symbols to work with (0, 1)</p>
+        <p>2^4*1 + 2^3*0 + 2^2*1 + 2^1*0 + 2^0*1</p>
+        <p>1        0       1       0       1</p>
+
+        <br>
+        <p>You can convert decimal to binary by asking yourself. what's the most significant tier of 2 that can fit inside my number</p>
+        <p>in our case with 21 the highest power of 2 that can fit inside 21 is 4. 2^4=16</p>
+        <p>then we make our way down the powers. if that power added to the previous power doesnt fit, we ignore it and move to a smaller power</p>
+
+        <br>
+        <p>another way to convert from base10 to a smaller base. is to divide our base10 number by the base we want to convert to. we keep note of the remainder each time. untill our qutioent is 0 then we stop</p>
+        <p>the remainders are the 'repititions' of the 'tiers'</p>
+        <br>
+        <p>For example:</p>
+        <img src="base_conversion_by_division.png">
+        <p>The remainders from bottom to the top. are the binary representation of 21.</p>
+        <p>10101</p>
+
+        <br>
+
+        
+        <h4>Now let's apply this knowledge to a problem</h4>
+        <p class="titleOption" onclick="expandSection('s13')">Codeforces 2020A:Find Minimum Operations.</p>
+        <div class="section" id="s13">
+            <div class="twoBtns">
+                <a href="https://codeforces.com/problemset/problem/2020/A"><button class="btnImg">Open Outside <img src="open.png" alt="" width="30" height="30"></button></a>
+                <button class="btnImg" onclick="openImg('2020A')">Open here</button>
+            </div>
+
+            <br>
+
+            <p>
+                we are tasked to find the minimum number of times we can subtract k^x from n. such that n will equal 0.
+                x is any positive integer.
+            </p>
+
+            <p>
+                Recall from the explanation above. that when representing a number in a different base k. we asked ourselves "what's the most significant power of k that can fit inside my number?"
+                this is pretty much the solution of our problem, by representing n as a number in the base-K, we will go from the greatest powers of k that can fit inside our number and gradually go down.
+                also recall that the digits in our slots represent the repititions of a specific power. the digits in the new slots are the remainders in the division method.
+                so we will simply count the remainders as we are converting to base-K. these remainders are our number of steps
+            </p>
+            <br>
+            <p>E.G: 1</p>
+            <img src="2020A_EX1.png" alt="">
+            <p>Here the sum of remainders is 1. which indeed is the number of steps needed.</p>
+            <p>we can confirm this because the heighest power of 4 that fits into 16 is 2, so 4^2 = 16, only one step is needed</p>
+
+            <p>E.G: 2</p>
+            <img src="2020A_EX2.png" alt="" srcset="">
+            <p>what's the biggest power of 2 that can fit into 5? 2^2 = 4</p>
+            <p>after that, what's the next power of 2 that's when added to the previous power fits into 5? 2^0 = 1</p>
+            <p>our Modulus sum is 2, and indeed we only need 2 steps</p>
+            <p class="titleOption" onclick="expandSection('c14')">Code Solution</p>
+            <div class="section" id="c14">
+                <a href="https://codeforces.com/contest/2020/submission/285535946">
+                    <button class="btnImg"> Open <img src="open.png" width="30"></button>
+                </a>
+                <textarea name="" id="" readonly rows="50" cols="65">
+                    #include <iostream>
+                    #include <bits/stdc++.h>
+                    #include <cmath>
+                    #define TC ll t;cin>>t;while(t--)
+                    #define ll long long
+                    #define FORN for(ll i=0; i<n; i++)
+                    using namespace std;
+                    
+                    
+                    
+                    int solve (int n, int k) {
+                      int ans = 0;
+                      while (n != 0) {
+                        ans += n % k;
+                        n/=k;
+                      }
+                    
+                      return ans;
+                    }
+                    
+                    int main() {
+                        #ifdef HELL_JUDGE
+                        freopen("input","r",stdin);
+                        freopen("output","w",stdout);
+                        freopen("error","w",stderr);
+                        #endif
+                    
+                        TC {
+                          ll n, k;
+                          cin >> n >> k;
+                    
+                    
+                          ll cnt = 0;
+                          if (k > n) {
+                            cout << n << endl;
+                          } else if (k == n) {
+                            cout << 1 << endl;
+                          } else if (k == 1) {
+                            cout << n << endl;
+                          } else {
+                            
+                            cout << solve(n, k) << endl;
+                          }
+                        
+                        }
+                    
+                        return 0;
+                    }
+                    
+
+                </textarea>
+            </div>
+
+        </div>
+    </div>
 
 
     <style>
@@ -309,6 +438,7 @@
             document.getElementById(idd).style.display = "none";
         }
         closeImg('22d1b');
+        closeImg('2020A');
     </script>
 </body>
 

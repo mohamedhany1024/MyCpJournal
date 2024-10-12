@@ -65,3 +65,13 @@
     cursor: pointer;
 }
 
+.twoBtns {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 8px;
+}
+
+#2020A {
+    overflow: auto;
+}
