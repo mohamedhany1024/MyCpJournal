@@ -218,6 +218,68 @@
         </textarea>
     </div>
     
+    <h3 class="titleOption" onclick="expandSection('s11')">File Inputs</h3>
+    <div class="section" id="s11">
+        <p><a href="https://www.eecis.udel.edu/~saunders/progteam/file_io.html">Source: University Of Deleware</a></p>
+        <br>
+        <p>
+                C++ is an entirely different beast from C. C uses the FILE pointers to do everything, C++ uses ofstream and ifstream objects. To get them #include <iostream>, <iomanip>, and <fstream>. Output uses ofstream objects. Input use ifstream objects. Here's an example of how to read lines from a file in C++:
+
+                
+                
+                The key here is to instantiate an ifstream object. In the example, I called it `in'. Passing "a.in" to it's constructor tells in to open up the file a.in for reading. Once the file is opened you can read things in the same way you would for cin (except instead of using cin, use in). The above example reads in one line of input using the getline method. Once we hit the EOF, getline returns 0 and we break out of the loop. Here's another example that reads in a list of integers from a file:
+                
+               <textarea name="" id="" cols="55" rows="17" readonly>
+                #include <iostream>
+                #include <iomanip>
+                #include <fstream>
+                    
+                using namespace std;
+                    
+                int main (void)
+                {
+                    ifstream in ("b.in");
+                    int n;
+                    
+                    while ((in >> n)) {
+                        cout << "Entered: " << n << endl;
+                    }
+                    
+                    return 0;
+                }
+               </textarea>
+               <br>
+                
+                Same deal as above for opening up the file. To read from it, I used the stream extraction operator. That will return NULL once you hit EOF.
+                
+                C++ output is done in a similar fashion, except now we use ofstream objects. Here's an example:
+                
+               <textarea name="" id="" rows="15" cols="75" readonly>
+                    #include <iostream>
+                    #include <iomanip>
+                    #include <fstream>
+                    
+                    using namespace std;
+                    
+                    int main (void)
+                    {
+                        ofstream out ("foo.out");
+                    
+                        out << "Hi.  this gets written to a file." << endl;	
+                        out.close ();
+                    
+                        return 0;
+                    }
+               </textarea>
+               <br>
+
+                
+                
+                to open the file, I passed "foo.out" to the constructor of the out object. That tells out to open up the file "foo.out" for writing. Once opened, out works just like cout does. (ie, you use the stream insertion operators to get stuff written) Instead of being written to the screen, out will write data to the file. Once done writing, call the close () method to flush any data out to disk.
+                
+                As with C, there are other methods that can used to read/write with these objects. Go look them up in a reference manual if you need them. 
+        </p>
+    </div>
     
 
 
