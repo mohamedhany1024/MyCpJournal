@@ -180,5 +180,72 @@ const data = [
         },
         "author": "Mohamed Hany",
         "video": ""
+      },
+      {
+        "id": 23,
+        "title": "Codechef EQUALMEX",
+        "content": "## Problem\nWe are given an array of size $2N$, we are required to see if it is possible to rearrange this array to form two subarrays of size $N$, such that each subarray has the same MEX.\n\n## Solution\nBefore getting to the general solution, there are some simple observations that we need to make:\n1. if there are no zero's in the given array, then the MEX for the two subarrays will always be 0 so in this case the answer is always YES\n2. if each element in the array is repeated exactly twice, this means that we can form two subarrays that are exact replicas, and in this case their MEX will always be equal\n3. if there is exactly one zero in the given array, the MEX of one of the subarrays will always be 0, so in this case the answer is always NO (that one zero can only belong to ONE of the two subarrays)\n\nif none of the above cases satisfy, we will then apply our general solution\nwe will utilize an ordered frequency map,\nThe ordered property allows us to check if a MEX is possible for the two arrays or not\n\nwhile we are iterating if an element with a frequency is 0 detected, then this is a possible candidate for our MEX, BUT if any element before it has a frequency less than 2, then the current element can't be a MEX for both subarrays since the element with a frequency less than 2 is a MEX of ONE of the subarrays, so our output in that case is NO, if an element of frequency 0 is found and there are NO previous elements with a frequency less than 2 then our answer is YES\n\ncode solution:\n```cpp\n#include <iostream>\n#include <bits/stdc++.h>\n#define ll long long\n#define endl '\\n'\n#define fio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);\n#define TC int t; cin >> t; while(t--)\n#define FORN for(int i=0; i<n; i++)\n#define ivec vector<int>\n#define svec vector<string>\n\nusing namespace std;\n\nint num_zeros(vector<int> &v)\n{\n    int cnt = 0;\n    for(int i=0; i<v.size(); i++)\n    {\n        if (v[i] == 0)\n        {\n            cnt++;\n        }\n    }\n    return cnt;\n}\n\nbool exact_replicas(map<ll, ll>& mp)\n{\n    for (auto& x : mp)\n    {\n        if (x.second != 2)\n        {\n            return false;\n        }\n    }\n    return true;\n}\n\nint main()\n{\n    \n    TC\n    {\n        ivec v;\n        int n;\n        cin >> n;\n        map <ll, ll> mp;\n        for(int i=0; i<2*n; i++)\n        {\n            int x;\n            cin >> x;\n            v.push_back(x);\n            mp[x]++;\n        }\n        sort(v.begin(), v.end());\n       \n        int zeros_cnt = num_zeros(v);\n        bool are_replicas = exact_replicas(mp);\n\n        if (zeros_cnt == 0)\n        {\n            cout << \"YES\" << endl;\n        }\n        else if (zeros_cnt != 1 && are_replicas)\n        {\n            cout << \"YES\" << endl;\n        }\n        else if (zeros_cnt == 1)\n        {\n            cout << \"NO\" << endl;\n        }\n        else\n        {\n            \n            bool ca = false;\n            bool less_than_two = false;\n\n            for(int i=0; i<=v.back()+1; i++) {\n                if (mp[i]< 2 && mp[i] != 0) {\n                    less_than_two = true;\n                }\n\n                if (mp[i] == 0) {\n                    if (!less_than_two) {\n                        cout << \"YES\" << endl;\n                        ca = true;\n                        break;\n                    }\n                }\n            }\n            if (!ca) {\n                cout << \"NO\" << endl;\n            }\n        }\n    }\n    return 0;\n}\n```",
+        "category": "problems",
+        "resource": {
+          "in": "../src/problems/codechef_equalmex.png",
+          "out": "https://www.codechef.com/problems/EQUALMEX"
+        },
+        "author": "Mohamed Hany",
+        "video": ""
+      }, 
+      {
+        "id": 24,
+        "title": "Codechef LOSTEQ",
+        "content": "## Problem\nWe are asked if it is possible to reconstruct an array $A$, given an array $B$. Array $B$ was made using the following procedure:\n1. For every element $A_i$ choose an arbitrary $K$\n2. Add to array $B$: $A_i + K$ and $A_i - K$\n3. Randomly shuffle array $B$\n\n## Solution\nIf we sum all elements of array $B$, we notice that:\n- For every arbitrary $+K$ added, a $-K$ is also added (they cancel out)\n- Every $A_i$ is added twice to array $B$\n- Therefore: $\\sum B = \\sum (2A_i)$\n\nWe can validate the input by checking if the sum is even:\n\n```cpp\n#include <iostream>\n#include <bits/stdc++.h>\n#define ll long long\n#define endl '\\n'\n#define fio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);\n#define TC int t; cin >> t; while(t--)\n#define FORN for(int i=0; i<n; i++)\n#define ivec vector<int>\n#define svec vector<string>\n\nusing namespace std;\n\nint main() {\n    fio\n    TC {\n        int n;\n        cin >> n;\n        int arr[200005];\n        ll sum = 0;\n        for(int i=0; i<n*2; i++) {\n            cin >> arr[i];\n            sum += arr[i];\n        }\n        cout << ((sum % 2 == 0) ? \"YES\" : \"NO\") << endl;\n    }\n    return 0;\n}\n```",
+        "category": "problems",
+        "resource": {
+          "in": "../src/problems/codechef_losteq2.png",
+          "out": "https://www.codechef.com/problems/LOSTSEQ"
+        },
+        "author": "Mohamed Hany",
+        "video": ""
+      }, 
+      {
+        "id": 25,
+        "title": "Binary Search Functions in C++",
+        "content": "# Binary Search Functions in C++\n\n## binary_search() Function\nChecks if a value exists in a sorted range:\n\n```cpp\nbool binary_search(ForwardIterator first, ForwardIterator last, const T& value);\n```\n\n**C-style array usage:**\n```cpp\nint arr[] = {1, 3, 5, 7, 9};\nint size = sizeof(arr)/sizeof(arr[0]);\nbool found = binary_search(arr, arr + size, 5); // Returns true\n```\n\n**Vector usage:**\n```cpp\nvector<int> vec = {2, 4, 6, 8, 10};\nbool found = binary_search(vec.begin(), vec.end(), 7); // Returns false\n```\n\n## lower_bound() Function\nReturns iterator to first element $\\geq$ value:\n\n```cpp\nForwardIterator lower_bound(ForwardIterator first, ForwardIterator last, const T& value);\n```\n\n**Examples:**\n```cpp\n// Array\nint* lb = lower_bound(arr, arr + size, 4); // Points to 5\n\n// Vector\nauto it = lower_bound(vec.begin(), vec.end(), 5); // Points to 6\n```\n\n## upper_bound() Function\nReturns iterator to first element $>$ value:\n\n```cpp\nForwardIterator upper_bound(ForwardIterator first, ForwardIterator last, const T& value);\n```\n\n**Examples:**\n```cpp\n// Array\nint* ub = upper_bound(arr, arr + size, 5); // Points to 7\n\n// Vector\nauto it = upper_bound(vec.begin(), vec.end(), 6); // Points to 8\n```\n\n## Comparison Table\n\n| Function        | Returns                      | Complexity |\n|----------------|-----------------------------|------------|\n| binary_search() | bool (exists/not)           | $O(\\log n)$ |\n| lower_bound()   | First $\\geq$ value          | $O(\\log n)$ |\n| upper_bound()   | First $>$ value             | $O(\\log n)$ |\n\n## Complete Example\n```cpp\n#include <iostream>\n#include <algorithm>\n#include <vector>\nusing namespace std;\n\nint main() {\n    int arr[] = {10, 20, 30, 30, 40, 50};\n    int size = sizeof(arr)/sizeof(arr[0]);\n    \n    cout << \"Contains 30: \" << binary_search(arr, arr+size, 30) << endl;\n    \n    int* lb = lower_bound(arr, arr+size, 30);\n    cout << \"First 30 at: \" << (lb - arr) << endl;\n    \n    int* ub = upper_bound(arr, arr+size, 30);\n    cout << \"After 30 at: \" << (ub - arr) << endl;\n    \n    vector<int> vec = {5, 10, 15, 20, 25};\n    \n    auto vec_lb = lower_bound(vec.begin(), vec.end(), 12);\n    if (vec_lb != vec.end()) {\n        cout << \"First >=12: \" << *vec_lb << endl;\n    }\n    \n    return 0;\n}\n```\n\n**Key Notes:**\n1. All functions require sorted ranges\n2. Works with any random-access iterators\n3. Custom comparators can be added\n4. For vectors, prefer begin()/end()\n5. For arrays, use pointer arithmetic",
+        "category": "cpp",
+        "author": "Mohamed Hany"
+      },
+      {
+        "id": 26,
+        "title": "getting size of array with sizeof()",
+        "content": "# Getting Array Size with sizeof() in C++\n\n## Understanding sizeof()\nThe `sizeof()` operator returns the size (in bytes) of its operand:\n\n```cpp\nsizeof(variable_or_type)\n```\n\n## For C-style Arrays\nTo get the number of elements in a C-style array:\n\n```cpp\ndata_type array[length];\nint size = sizeof(array) / sizeof(array[0]);\n```\n\n**Example:**\n```cpp\nint numbers[] = {10, 20, 30, 40, 50};\nint count = sizeof(numbers) / sizeof(numbers[0]); \n// count = 5\n```\n\n## Why This Works\n- `sizeof(array)` gives total bytes: $\\text{length} \\times \\text{sizeof(data\\_type)}$\n- `sizeof(array[0])` gives bytes per element\n- Division yields element count: $\\frac{\\text{total bytes}}{\\text{element bytes}} = \\text{length}$\n\n## Important Notes\n1. Only works with actual arrays (not pointers)\n2. Doesn't work with dynamic arrays\n3. For vectors, use `vector.size()` instead\n4. Size is calculated at compile-time\n\n## Common Pitfalls\n```cpp\nvoid printSize(int arr[]) {\n    // WRONG - arr is a pointer here\n    int wrong = sizeof(arr) / sizeof(arr[0]); \n}\n```\n\n## Template Alternative (C++11+)\n```cpp\ntemplate<typename T, size_t N>\nsize_t arraySize(T (&)[N]) { return N; }\n\n// Usage:\ndouble values[8];\ncout << arraySize(values); // 8\n```\n\n## Comparison Table\n\n| Method | Works With | Compile-Time | Notes |\n|--------|-----------|--------------|-------|\n| `sizeof`/`sizeof` | C-arrays | Yes | Fails with decayed pointers |\n| Template function | C-arrays | Yes | More robust |\n| `.size()` | Vectors | No | Preferred for STL containers |",
+        "category": "cpp",
+        "resource": {
+          "in": "",
+          "out": ""
+        },
+        "author": "Mohamed Hany",
+        "video": ""
+      },
+      {
+        "id": 27,
+        "title": "memset & vector initialization",
+        "content": "# Understanding memset() and Vector Initialization in C++\n\n## memset() Function\n\n### Syntax\n```cpp\nvoid* memset(void* ptr, int value, size_t num);\n```\n\n### Valid Values\n1. **Byte Values Only** (0 to 255)\n2. Common usage patterns:\n   - `0` for zero initialization\n   - `-1` for setting all bits to 1 (two's complement)\n   - Any value within single-byte range\n\n### Time Complexity\n- $O(n)$ linear time complexity\n- Operates at raw memory level\n\n### Example Usage\n```cpp\nint arr[100];\nmemset(arr, 0, sizeof(arr)); // Zero initialization\n\nchar buffer[1024];\nmemset(buffer, 'A', 512); // Set first 512 bytes to 'A'\n```\n\n## Vector Initialization Methods\n\n### 1. Default Initialization\n```cpp\nvector<int> v1(100); // 100 elements with value 0\n```\n- Complexity: $O(n)$\n\n### 2. Value Initialization\n```cpp\nvector<int> v2(100, 42); // 100 elements with value 42\n```\n- Complexity: $O(n)$\n\n### 3. List Initialization (C++11)\n```cpp\nvector<int> v3 {1, 2, 3, 4, 5}; // Initializer list\n```\n- Complexity: $O(n)$\n\n### 4. Fill Algorithm\n```cpp\nvector<int> v4(100);\nfill(v4.begin(), v4.end(), 42);\n```\n- Complexity: $O(n)$\n\n## Key Differences\n\n| Method | Works With | Type Safety | Flexibility | Typical Use Case |\n|--------|-----------|-------------|-------------|------------------|\n| `memset()` | Raw memory | Unsafe | Limited | Low-level operations |\n| Vector constructor | STL containers | Safe | Moderate | General purpose |\n| `fill()` | STL containers | Safe | High | Mid-operation updates |\n\n## Important Notes\n1. `memset()` works with bytes, not objects\n2. For non-POD types, use proper constructors\n3. Vector initialization is generally preferred\n4. Modern C++ offers more type-safe alternatives\n\n## Performance Considerations\n- `memset()` is faster for large byte arrays ($\\approx$ 2-3x)\n- Vector methods are safer and more flexible\n- Compiler optimizations often make vector initialization efficient",
+        "category": "cpp",
+        "resource": {
+          "in": "",
+          "out": ""
+        },
+        "author": "Mohamed Hany",
+        "video": ""
+      },
+      {
+        "id": 28,
+        "title": "Codeforces EDU 178 B",
+        "content": "## Problem\nWe are given 3 numbers $a$, $b$, $c$ where $a < b < c$. We need to determine if we can deduct values from $c$ and add them to $a$ or $b$ to make $a = b = c$.\n\n## Solution\nGiven $a < b < c$, we approach this in two steps:\n\n1. First attempt to increase $a$ to make $a = b = c$\n2. If that fails, try adding quantity $x$ to both $a$ and $b$ such that:\n   $$c - 2x = a + x = b + x$$\n\nThis leads to the equation:\n$$x = \\frac{c - a}{3}$$\n\nIf $x$ is a whole number, it's possible to balance the values; otherwise, it's impossible.\n\n### Code Solution\n```cpp\n#include <iostream>\n#include <bits/stdc++.h>\n#define ll long long\n#define fio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);\n#define TC int t; cin >> t; while(t--)\n\nusing namespace std;\n\nint main() {\n    fio\n    TC {\n        ll a, b, c;\n        cin >> a >> b >> c;\n        ll newC = c - (b - a);\n        \n        if (newC == b) {\n            cout << \"YES\" << endl;\n        } \n        else if (newC < b) {\n            cout << \"NO\" << endl;\n        }\n        else if ((newC - b) % 3 == 0) {\n            cout << \"YES\" << endl;\n        }\n        else {\n            cout << \"NO\" << endl;\n        }\n    }\n    return 0;\n}\n```\n\n### Key Points\n1. The solution checks two possible balancing approaches\n2. Uses modular arithmetic to verify if $x$ is integer\n3. Handles edge cases where direct balancing isn't possible\n4. Time complexity is $O(1)$ per test case\n5. Space complexity is $O(1)$\n\n### Mathematical Insight\nThe core equation $x = \\frac{c - a}{3}$ comes from:\n$$c - 2x = a + x$$\n$$c - a = 3x$$\n$$x = \\frac{c - a}{3}$$\n\nFor the solution to be valid, $x$ must be a non-negative integer.",
+        "category": "problems",
+        "resource": {
+          "in": "../src/problems/cf_2104_A.png",
+          "out": "https://codeforces.com/problemset/problem/2104/A"
+        },
+        "author": "Mohamed Hany",
+        "video": ""
       }
 ];
