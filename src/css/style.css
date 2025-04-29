@@ -132,6 +132,21 @@ body {
     font-family: 'Inter', sans-serif; /* Consistent font with the rest of the app */
 }
 
+/*.flex-flex-cont {
+    display: flex;
+    flex-wrap: wrap;
+}*/
+
+.categories-flex-cont {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.categories-flex-cont .card3 {
+    flex-grow: 1;
+    flex-basis: 200;
+}
+
 @media (max-width: 1024px) {
     .image-preview {
         max-width: 90%; /* Adjust for smaller screens */
