@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/github.min.css">
+    <link rel="stylesheet" href="../lite-material-ui/dist/materialUI.css">
+    <link rel="stylesheet" href="../src/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="screen" id="main">
+        <div class="titleBar">
+            <p>mhany's competitive programming journal</p>
+            <input type="text" name="" id="" class="editText" placeholder="Search...">
+        </div>
+        <div class="container">
+            <h2>
+                Explore By Category
+            </h2>
+            <div class="divider"></div>
+            <div class="categories grid3">
+                <div class="category card3" onclick="performAction('category-details', {'category': 'math'})">
+                    <div class="card-content">
+                        <img src="https://img.icons8.com/?size=100&id=62154&format=png&color=000000" alt="Algorithms" width="60px">
+                        
+                        <h3>Math</h3>
+                    </div>
+                </div>
+                <div class="category card3" onclick="performAction('category-details', {'category': 'cpp'})">
+                    <div class="card-content">
+                        <img src="https://img.icons8.com/?size=100&id=55199&format=png&color=000000" alt="Algorithms" width="60px">
+                        <h3>C++</h3>
+                    </div>
+                </div>
+                <div class="category card3" onclick="performAction('category-details', {'category': 'algo'})">
+                    <div class="card-content">
+                        <img src="https://img.icons8.com/?size=100&id=zwW8v27vJm1e&format=png&color=000000" alt="Algorithms" width="60px">
+                        <h3>Algorithms</h3>
+                    </div>
+                </div>
+                <div class="category card3" onclick="performAction('category-details', {'category': 'problems'})">
+                    <div class="card-content">
+                        <img src="../src/img/icons8-rubik's-cube-100.png" alt="Algorithms" width="60px">
+                        <h3>Problems</h3>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h2>Explore All</h2>
+            <div class="divider"></div>
+            <br>
+            <div class="list-all" id="list-all">
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="category-details">
+        <div class="titleBar">
+            <button class="btn imgBtn" onclick="goBack()">
+                <img src="../src/img/go_back_ico.png" width="40px">
+            </button>
+            <p id="category-title-header">Exploring: </p>
+        </div>
+
+        <div class="container">
+            <h2 id="category-heading">Posts in: </h2>
+            <div class="divider"></div>
+            <div class="categroy-content" id="category-content">
+                <div class="card3">
+                    <div class="card-content">
+                        <h3 id="category-title">Title</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.</p>
+                        <div class="card-actions">
+                            <button class="btn">Read More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="post-details">
+        <div class="image-preview-overlay" id="imagePreviewOverlay">
+            <div class="image-preview-container">
+                <div class="image-preview" id="imagePreview">
+                    <button class="close-img-preview btn" onclick="closeImage()">
+                        &times;
+                    </button>
+                    <img src="../2020A.png" alt="Preview" id="previewImage">
+                </div>
+            </div>
+        </div>
+        <div class="titleBar">
+            <button class="btn imgBtn" onclick="goBack()">
+                <img src="../src/img/go_back_ico.png" width="40px">
+            </button>
+            <p id="post-title-header">Post Title</p>
+        </div>
+        
+        <div class="container">
+            
+            <div class="flexRow">
+                <h2 id="post-title">...</h2>
+                <button style="display: none;" id="openInside" class="btn"><img src="../src/img/open_inside.png" width="20px"></button>
+                <button style="display: none;" id="openOutside" class="btn"><img src="../open.png" width="20px"></button>
+
+                <button style="display: none;" id="openVideo" class="btn"><img src="https://img.icons8.com/?size=100&id=86833&format=png&color=FFFFFF" width="20px"></button>
+            </div>
+            <div class="divider"></div>
+            <div class="authorContainer">
+                <img src="../pfp.jpg" width="50px" alt="pfp" class="authorPfp">
+                <p id="post-author">Author: </p>
+            </div>
+            <div class="divider"></div>
+            <br>
+            <div class="content" id="content">
+
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="../src/js/ripple.js" defer></script>
+    <script src="../lite-material-ui/dist/webUtils.js"></script>
+    <script src="../src/js/mui.config.js"></script>
+    <script src="../src/js/data.js"></script>
+    <script src="../src//js/content_rendering.js"></script>
+    <script src="../src/js/open.js"></script>
+    <script src="../src/js/script.js"></script>
+    
+</body>
+</html>

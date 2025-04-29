@@ -1,0 +1,153 @@
+@keyframes fade-in {
+    0% {
+       opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+    
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+.card3 {
+    position: relative; /* Ensure the ripple is contained within the card */
+    overflow: hidden; /* Prevent the ripple from overflowing */
+    border-radius: 10px;
+    border: 1px solid rgb(218, 218, 218);
+    padding: 8px;
+    padding-inline: 16px;
+    margin: 8px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card3:hover {
+    cursor: pointer;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card3 .ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    background: rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.authorContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+    padding: 8px;
+}
+
+.authorPfp {
+    border-radius: 100px;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    /* font-size: 1rem; */
+}
+
+.image-preview-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    /* max-width: 100%; */
+    /* max-height: 100%; */
+    /* object-fit: cover; */
+    
+   
+    background-color: rgba(0, 0, 0, 0.336); /* Light background to contrast with the image */
+   
+   
+    z-index: 5;
+    animation: fade-in 0.3s ease-in-out;
+    display: none;
+}
+
+.close-anime {
+    animation: fade-out 0.3s ease-in-out forwards;
+}
+
+.image-preview {
+    /* position: fixed; */
+    width: 100%;
+    /* height: 100%; */
+    max-width: 70%;
+    max-height: 80%;
+    object-fit: cover;
+    border: 1px solid #ccc; /* Add a subtle border for better visibility */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    background-color: #f9f9f9; /* Light background to contrast with the image */
+    padding: 8px; /* Add padding to create space around the image */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    overflow-y: auto;
+    z-index: 5;
+}
+
+.image-preview-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center; /* Center the image preview */
+    align-items: center; /* Center the image vertically */
+    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+.image-preview img {
+    display: block; /* Ensure the image is treated as a block element */
+    margin: 0 auto; /* Center the image horizontally */
+    max-width: 100%; /* Prevent the image from exceeding its container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.image-preview .caption {
+    margin-top: 8px; /* Space between the image and caption */
+    font-size: 0.9rem; /* Slightly smaller font for captions */
+    color: #555; /* Neutral color for text */
+    text-align: center; /* Center-align the caption */
+    font-family: 'Inter', sans-serif; /* Consistent font with the rest of the app */
+}
+
+@media (max-width: 1024px) {
+    .image-preview {
+        max-width: 90%; /* Adjust for smaller screens */
+        max-height: 90%;
+    }
+}
+@media (max-width: 480px) {
+    .image-preview {
+        max-width: 100%; /* Further adjust for very small screens */
+        /* max-height: 100%; */
+        height: 100%;
+    }
+}
+@media (max-width: 320px) {
+    .image-preview {
+        max-width: 100%; /* Full width for very small screens */
+        /* max-height: 100%; */
+    }
+}

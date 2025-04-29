@@ -1,0 +1,1 @@
+updateProperties([{"name": "--accent-color", "value": "teal"}]);
