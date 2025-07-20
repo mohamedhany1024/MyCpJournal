@@ -247,5 +247,29 @@ const data = [
         },
         "author": "Mohamed Hany",
         "video": ""
+      },
+      {
+        "id": 29,
+        "title": "Casework Technique",
+        "content": "Casework is a technique where we divide the problem into distinct cases, i usually start by picking the most obvious (& more specific) cases first, sometimes, doing the specifc / easy cases first can help lead you to a more general case\n let's see an example of this in a [problem](index.html?category=problems&screen=post-details&id=19)!",
+        "category": "algo",
+        "resource": {
+          "in": "",
+          "out": ""
+        },
+        "author": "Mohamed Hany",
+        "video": ""
+      },
+      {
+        "id": 30,
+        "title": "Regular Bracket Sequence",
+        "content": "# Regular Bracket Sequence (RBS) Definition & Analysis\n\n## Formal Definition\nA **Regular Bracket Sequence** (RBS) is a string consisting solely of parentheses (typically `(` and `)`) that satisfies these conditions:\n1. **Balanced**: Every opening bracket has a corresponding closing bracket\n2. **Properly Nested**: Brackets never close in the wrong order (no `)(`)\n3. **Even Length**: Total length must be even (odd-length sequences are inherently invalid)\n\n## Key Properties\n- **Subsequence Property**: Any contiguous subsequence of an RBS must itself be a balanced sequence\n- **Prefix Property**: At any point in the sequence, the number of opening brackets ≥ closing brackets\n\n## Validation Algorithm (Stack Approach)\n```python\ndef is_rbs(s: str) -> bool:\n    stack = []\n    for char in s:\n        if char == '(':\n            stack.append(char)\n        elif stack:\n            stack.pop()\n        else:\n            return False\n    return len(stack) == 0\n```\n\n### Why This Works\n1. **LIFO Principle**: The stack ensures we always match the most recent opening bracket (Last-In-First-Out)\n2. **Early Termination**: If we try to pop from an empty stack, we immediately know the sequence is invalid\n3. **Final Check**: Empty stack confirms all brackets were properly matched\n\n## Examples\n- Valid: `()`, `(())`, `()(())`\n- Invalid: `)(`, `(()`, `())`\n\n## Edge Cases\n- Empty string (technically valid)\n- Single bracket (always invalid)\n- Alternating brackets `()()` (valid)\n- Deeply nested `((((()))))` (valid)\n\n## Time Complexity\n- **O(n) time**: Single pass through the string\n- **O(n) space**: Worst-case stack usage (e.g., `(((((`)\n\n## Alternative Approaches\n1. **Counter Method**:\n   ```python\n   balance = 0\n   for char in s:\n       balance += 1 if char == '(' else -1\n       if balance < 0: return False\n   return balance == 0\n   ```\n   - More space-efficient (O(1)), but only works for single bracket types\n\n2. **Recursive Validation**:\n   - Remove innermost `()` pairs iteratively until empty or invalid\n   - Less efficient but demonstrates the \"nested\" property\n\n## Practical Applications\n- Syntax validation in compilers/interpreters\n- XML/HTML tag matching\n- Text editor bracket highlighting\n- Memory address validation (stack frames)",
+        "category": "algo",
+        "resource": {
+          "in": "",
+          "out": ""
+        },
+        "author": "Mohamed Hany",
+        "video": ""
       }
 ];
